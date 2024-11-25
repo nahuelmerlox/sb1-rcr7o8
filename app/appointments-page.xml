@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo" class="page">
+    <ActionBar title="Appointments" class="action-bar">
+        <ActionItem tap="onRefresh" ios.position="right" android.position="popup">
+            <Label text="Refresh" />
+        </ActionItem>
+    </ActionBar>
+
+    <GridLayout rows="auto, *">
+        <SegmentedBar row="0" items="{{ filterOptions }}" selectedIndex="{{ selectedFilterIndex }}" />
+        
+        <ListView row="1" items="{{ appointments }}" class="list-group">
+            <ListView.itemTemplate>
+                <GridLayout columns="*, auto" class="list-group-item">
+                    <StackLayout col="0">
+                        <Label text="{{ clientName }}" class="font-bold text-lg" />
+                        <Label text="{{ service }}" class="text-gray-600" />
+                        <Label text="{{ date, 'dd/MM/yyyy HH:mm' }}" class="text-gray-500" />
+                    </StackLayout>
+                    <StackLayout col="1" orientation="horizontal">
+                        <Button text="✓" tap="onConfirm" class="btn btn-success" visibility="{{ status === 'pending' ? 'visible' : 'collapsed' }}" />
+                        <Button text="✕" tap="onCancel" class="btn btn-danger" visibility="{{ status === 'pending' ? 'visible' : 'collapsed' }}" />
+                    </StackLayout>
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+    </GridLayout>
+</Page>
